@@ -66,6 +66,11 @@ function! s:on_window_changed(event)
     " do not trigger for previewwindows
     return
   endif
+
+  if exists("*nvim_win_get_config") && !empty(nvim_win_get_config(0).relative)
+    return
+  endif
+
   let s:active_winnr = winnr()
   " Handle each window only once, since we might come here several times for
   " different autocommands.
